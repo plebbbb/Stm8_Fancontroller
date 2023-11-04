@@ -50,6 +50,7 @@ crtsi0.sm8
 
 # Object files list - section reserved for STVD
 #<BEGIN OBJECT_FILES>
+Debug\pwm_controller.o
 Debug\main.o
 Debug\stm8l15x_adc.o
 Debug\stm8l15x_aes.o
@@ -79,6 +80,7 @@ Debug\stm8l15x_tim5.o
 Debug\stm8l15x_usart.o
 Debug\stm8l15x_wfe.o
 Debug\stm8l15x_wwdg.o
+Debug\voltage_controller.o
 #<END OBJECT_FILES>
 
 

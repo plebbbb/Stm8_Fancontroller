@@ -61,7 +61,7 @@ String.100.2=STM8 Cosmic
 String.100.3=ST7 Metrowerks V1.1
 String.100.4=Raisonance
 String.101.0=STM8 Cosmic
-String.102.0=C:\Program Files (x86)\STMicroelectronics\st_toolset\stvd
+String.102.0=
 String.103.0=
 String.104.0=Hstm8
 String.105.0=Lib
@@ -141,7 +141,7 @@ String.100.2=STM8 Cosmic
 String.100.3=ST7 Metrowerks V1.1
 String.100.4=Raisonance
 String.101.0=STM8 Cosmic
-String.102.0=C:\Program Files (x86)\STMicroelectronics\st_toolset\stvd
+String.102.0=
 String.103.0=
 String.104.0=Hstm8
 String.105.0=Lib
@@ -215,7 +215,7 @@ String.6.0=2023,9,23,16,20,10
 [Root.Source Files]
 ElemType=Folder
 PathName=Source Files
-Child=Root.Source Files.main.c
+Child=Root.Source Files.pwm_controller.c
 Next=Root.Include Files
 Config.0=Root.Source Files.Config.0
 Config.1=Root.Source Files.Config.1
@@ -285,6 +285,11 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2023,9,23,16,20,10
+
+[Root.Source Files.pwm_controller.c]
+ElemType=File
+PathName=pwm_controller.c
+Next=Root.Source Files.main.c
 
 [Root.Source Files.main.c]
 ElemType=File
@@ -434,11 +439,16 @@ Next=Root.Source Files.stm8_interrupt_vector.c
 [Root.Source Files.stm8_interrupt_vector.c]
 ElemType=File
 PathName=stm8_interrupt_vector.c
+Next=Root.Source Files.voltage_controller.c
+
+[Root.Source Files.voltage_controller.c]
+ElemType=File
+PathName=voltage_controller.c
 
 [Root.Include Files]
 ElemType=Folder
 PathName=Include Files
-Child=Root.Include Files.inc\stm8l15x.h
+Child=Root.Include Files.pwm_controller.h
 Config.0=Root.Include Files.Config.0
 Config.1=Root.Include Files.Config.1
 
@@ -507,6 +517,11 @@ String.3.0=
 String.4.0=
 String.5.0=
 String.6.0=2023,9,23,16,20,10
+
+[Root.Include Files.pwm_controller.h]
+ElemType=File
+PathName=pwm_controller.h
+Next=Root.Include Files.inc\stm8l15x.h
 
 [Root.Include Files.inc\stm8l15x.h]
 ElemType=File
@@ -656,3 +671,8 @@ Next=Root.Include Files.inc\stm8l15x_wwdg.h
 [Root.Include Files.inc\stm8l15x_wwdg.h]
 ElemType=File
 PathName=inc\stm8l15x_wwdg.h
+Next=Root.Include Files.voltage_controller.h
+
+[Root.Include Files.voltage_controller.h]
+ElemType=File
+PathName=voltage_controller.h

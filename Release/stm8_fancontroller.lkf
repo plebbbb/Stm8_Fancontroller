@@ -50,8 +50,6 @@ crtsi0.sm8
 
 # Object files list - section reserved for STVD
 #<BEGIN OBJECT_FILES>
-Release\pwm_controller.o
-Release\main.o
 Release\stm8l15x_adc.o
 Release\stm8l15x_aes.o
 Release\stm8l15x_beep.o
@@ -80,6 +78,11 @@ Release\stm8l15x_tim5.o
 Release\stm8l15x_usart.o
 Release\stm8l15x_wfe.o
 Release\stm8l15x_wwdg.o
+Release\adc_controller.o
+Release\clock.o
+Release\main.o
+Release\pwm_controller.o
+Release\stm8l15x_it.o
 Release\voltage_controller.o
 #<END OBJECT_FILES>
 

@@ -8,5 +8,5 @@ Filename=stm8_fancontroller.stp
 Dependencies=
 [Options]
 ActiveProject=stm8_fancontroller
-ActiveConfig=Release
-AddSortedElements=0
+ActiveConfig=Debug
+AddSortedElements=1

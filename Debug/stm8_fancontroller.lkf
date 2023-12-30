@@ -27,17 +27,17 @@
 # Segment configuration - section reserved for STVD
 #<BEGIN SEGMENT_CONF>
 # Segment Code,Constants:
-+seg .const -b 0x8080 -m 0x3f80 -n .const -it 
-+seg .text -a .const -n .text 
++seg .const -b 0x8080 -m 0x3f80 -n .const -it
++seg .text -a .const -n .text
 # Segment Eeprom:
-+seg .eeprom -b 0x1000 -m 0x400 -n .eeprom 
++seg .eeprom -b 0x1000 -m 0x400 -n .eeprom
 # Segment Zero Page:
-+seg .bsct -b 0x0 -m 0x100 -n .bsct 
-+seg .ubsct -a .bsct -n .ubsct 
-+seg .bit -a .ubsct -n .bit -id 
-+seg .share -a .bit -n .share -is 
++seg .bsct -b 0x0 -m 0x100 -n .bsct
++seg .ubsct -a .bsct -n .ubsct
++seg .bit -a .ubsct -n .bit -id
++seg .share -a .bit -n .share -is
 # Segment Ram:
-+seg .data -b 0x100 -m 0x4ff -n .data 
++seg .data -b 0x100 -m 0x4ff -n .data
 +seg .bss -a .data -n .bss
 #<END SEGMENT_CONF>
 
@@ -50,8 +50,6 @@ crtsi0.sm8
 
 # Object files list - section reserved for STVD
 #<BEGIN OBJECT_FILES>
-Debug\pwm_controller.o
-Debug\main.o
 Debug\stm8l15x_adc.o
 Debug\stm8l15x_aes.o
 Debug\stm8l15x_beep.o
@@ -80,12 +78,18 @@ Debug\stm8l15x_tim5.o
 Debug\stm8l15x_usart.o
 Debug\stm8l15x_wfe.o
 Debug\stm8l15x_wwdg.o
+Debug\adc_controller.o
+Debug\clock.o
+Debug\main.o
+Debug\pwm_controller.o
+Debug\stm8l15x_it.o
 Debug\voltage_controller.o
 #<END OBJECT_FILES>
 
 
 # Library list - section reserved for STVD
 #<BEGIN LIBRARY_FILES>
+libfs0.sm8
 libis0.sm8
 libm0.sm8
 #<END LIBRARY_FILES>

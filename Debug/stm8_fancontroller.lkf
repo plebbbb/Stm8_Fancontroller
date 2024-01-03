@@ -82,7 +82,9 @@ Debug\adc_controller.o
 Debug\clock.o
 Debug\main.o
 Debug\pwm_controller.o
+Debug\serial.o
 Debug\stm8l15x_it.o
+Debug\tachometer.o
 Debug\voltage_controller.o
 #<END OBJECT_FILES>
 

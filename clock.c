@@ -15,9 +15,7 @@ void clock_init(void){
 	TIM4_ClearFlag(TIM4_FLAG_Update);
 	
 	TIM4_ITConfig(TIM4_IT_Update, ENABLE);
-	
-	enableInterrupts();
-	
+		
 	TIM4_Cmd(ENABLE);
 }
 

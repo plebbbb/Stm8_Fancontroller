@@ -8,7 +8,7 @@ struct adc_sensor adc_FAN2;
 
 struct adc_sensor adc_FAN3;
 
-uint16_t adc_sense_output[3] = {0,0};
+uint16_t adc_sense_output[3] = {0,0,0};
 
 void adc_sensor_config(uint8_t sensor, double b1, double A1, double B1, double C1){
 	struct adc_sensor* tmp;
@@ -37,15 +37,20 @@ void adc_subsystem_init(void){
 	CLK_PeripheralClockConfig(CLK_Peripheral_ADC1, ENABLE);
 	CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
 	
-	ADC_Init(ADC1, ADC_ConversionMode_Continuous, ADC_Resolution_12Bit, ADC_Prescaler_2);
-	ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_384Cycles);
-	ADC_SamplingTimeConfig(ADC1, ADC_Group_FastChannels, ADC_SamplingTime_384Cycles);
+	ADC_Init(ADC1, ADC_ConversionMode_Continuous, ADC_Resolution_12Bit, ADC_Prescaler_2); //was prescaler 2
+	ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_4Cycles);
+	ADC_SamplingTimeConfig(ADC1, ADC_Group_FastChannels, ADC_SamplingTime_4Cycles); //was 384
 	
 	ADC_Cmd(ADC1, ENABLE);
 	
+	/*
 	ADC_ChannelCmd(ADC1, ADC_Channel_2, ENABLE);
 	ADC_ChannelCmd(ADC1, ADC_Channel_9, ENABLE);
 	ADC_ChannelCmd(ADC1, ADC_Channel_17, ENABLE);
+	*/
+	ADC_ChannelCmd(ADC1, ADC_Channel_2, ENABLE);
+	ADC_ChannelCmd(ADC1, ADC_Channel_15, ENABLE);
+	ADC_ChannelCmd(ADC1, ADC_Channel_16, ENABLE);	
 	
 	SYSCFG_REMAPDMAChannelConfig(REMAP_DMA1Channel_ADC1ToChannel0);
 	
@@ -68,4 +73,8 @@ double adc_sensor_read_C(struct adc_sensor sensor){
 	double temp_SFH = 1 / (0.003141 - 0.0001141*log(resistance) + 0.0000016181*pow(log(resistance),3)) - 273.15;
 	//double temp_SFH = 1 / ((double)sensor.A - (double)sensor.B*log(resistance) + (double)sensor.C*pow(log(resistance),3)) - 273.15;
 	return temp_SFH;
+}
+
+double adc_sensor_read_mv(struct adc_sensor sensor){
+	return 	(double)(*(sensor.read_addr)/4095.f) * 3200;
 }

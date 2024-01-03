@@ -82,7 +82,9 @@ Release\adc_controller.o
 Release\clock.o
 Release\main.o
 Release\pwm_controller.o
+Release\serial.o
 Release\stm8l15x_it.o
+Release\tachometer.o
 Release\voltage_controller.o
 #<END OBJECT_FILES>
 

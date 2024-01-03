@@ -6,7 +6,3 @@ Keyword=ST7Workspace-V0.7
 [Project0]
 Filename=stm8_fancontroller.stp
 Dependencies=
-[Options]
-ActiveProject=stm8_fancontroller
-ActiveConfig=Debug
-AddSortedElements=1

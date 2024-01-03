@@ -6,7 +6,7 @@ struct pwm_controller_port3;
 
 void pwm_control_init(uint16_t port){
 	CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, ENABLE);
-	TIM1_TimeBaseInit(0, TIM1_CounterMode_Up, 640, 0);
+	TIM1_TimeBaseInit(0, TIM1_CounterMode_Up, 640, 0); //~25khz from 12582 based on getting ~4800hz from 65536. This frequency is probably off spec.
 	
 	switch (port){
 		case 2: //timer 1 channel 1, pin D2
@@ -36,13 +36,13 @@ void pwm_control_setoutput(uint16_t port, uint16_t duty_cycle){
 	//		pwm_controller_port2.output_value = duty_cycle;
 	//		pwm_controller_port2.output_value_raw = duty_cycle * 125.82; // 12582/100
 	//		TIM1_SetCompare1(pwm_controller_port2.output_value_raw);
-				TIM1_SetCompare1(duty_cycle * 6.4);
+				TIM1_SetCompare1(duty_cycle * 125.82);
 			break;
 		case 3:
 	//		pwm_controller_port2.output_value = duty_cycle;
 	//		pwm_controller_port3.output_value_raw = duty_cycle * 125.82; // 12582/100
 	//		TIM1_SetCompare2(pwm_controller_port3.output_value_raw);
-				TIM1_SetCompare2(duty_cycle * 6.4);
+				TIM1_SetCompare2(duty_cycle * 125.82);
 
 			break;
 	}

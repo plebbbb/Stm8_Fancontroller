@@ -9,9 +9,9 @@
   70                     ; 8 	CLK_PeripheralClockConfig(CLK_Peripheral_TIM1, ENABLE);
   72  0001 ae1101        	ldw	x,#4353
   73  0004 cd0000        	call	_CLK_PeripheralClockConfig
-  75                     ; 9 	TIM1_TimeBaseInit(0, TIM1_CounterMode_Up, 12582, 0); //~25khz from 12582 based on getting ~4800hz from 65536. This frequency is probably off spec.
+  75                     ; 9 	TIM1_TimeBaseInit(0, TIM1_CounterMode_Up, 640, 0);
   77  0007 4b00          	push	#0
-  78  0009 ae3126        	ldw	x,#12582
+  78  0009 ae0280        	ldw	x,#640
   79  000c 89            	pushw	x
   80  000d 4b00          	push	#0
   81  000f 5f            	clrw	x
@@ -98,7 +98,7 @@
  231                     ; 36 	//		pwm_controller_port2.output_value = duty_cycle;
  231                     ; 37 	//		pwm_controller_port2.output_value_raw = duty_cycle * 125.82; // 12582/100
  231                     ; 38 	//		TIM1_SetCompare1(pwm_controller_port2.output_value_raw);
- 231                     ; 39 				TIM1_SetCompare1(duty_cycle * 125.82);
+ 231                     ; 39 				TIM1_SetCompare1(duty_cycle * 6.4);
  233  0014 1e05          	ldw	x,(OFST+5,sp)
  234  0016 cd0000        	call	c_uitof
  236  0019 ae0000        	ldw	x,#L77
@@ -112,7 +112,7 @@
  247                     ; 42 	//		pwm_controller_port2.output_value = duty_cycle;
  247                     ; 43 	//		pwm_controller_port3.output_value_raw = duty_cycle * 125.82; // 12582/100
  247                     ; 44 	//		TIM1_SetCompare2(pwm_controller_port3.output_value_raw);
- 247                     ; 45 				TIM1_SetCompare2(duty_cycle * 125.82);
+ 247                     ; 45 				TIM1_SetCompare2(duty_cycle * 6.4);
  249  0027 1e05          	ldw	x,(OFST+5,sp)
  250  0029 cd0000        	call	c_uitof
  252  002c ae0000        	ldw	x,#L77
@@ -138,7 +138,7 @@
  290                     	xref	_CLK_PeripheralClockConfig
  291                     .const:	section	.text
  292  0000               L77:
- 293  0000 42fba3d7      	dc.w	17147,-23593
+ 293  0000 40cccccc      	dc.w	16588,-13108
  294                     	xref.b	c_x
  314                     	xref	c_ftoi
  315                     	xref	c_fmul

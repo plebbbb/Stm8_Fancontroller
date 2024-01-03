@@ -36,6 +36,15 @@
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
 extern void delay_dec(void);
+
+extern void parse_byte_tx(void);
+extern void parse_byte_rx(void);
+
+extern void tach1_sens_update(void);
+extern void tach2_sens_update(void);
+extern void tach3_sens_update(void);
+
+extern void tach_ms_inc(void);
 /* Private functions ---------------------------------------------------------*/
 /* Public functions ----------------------------------------------------------*/
 
@@ -176,8 +185,10 @@ INTERRUPT_HANDLER(EXTI1_IRQHandler, 9)
   * @param  None
   * @retval None
   */
-INTERRUPT_HANDLER(EXTI2_IRQHandler, 10)
+@svlreg INTERRUPT_HANDLER(EXTI2_IRQHandler, 10)
 {
+	tach1_sens_update();
+	EXTI_ClearITPendingBit(EXTI_IT_Pin2);
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
@@ -188,8 +199,10 @@ INTERRUPT_HANDLER(EXTI2_IRQHandler, 10)
   * @param  None
   * @retval None
   */
-INTERRUPT_HANDLER(EXTI3_IRQHandler, 11)
+@svlreg INTERRUPT_HANDLER(EXTI3_IRQHandler, 11)
 {
+	tach2_sens_update();
+	EXTI_ClearITPendingBit(EXTI_IT_Pin3);
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
@@ -212,8 +225,10 @@ INTERRUPT_HANDLER(EXTI4_IRQHandler, 12)
   * @param  None
   * @retval None
   */
-INTERRUPT_HANDLER(EXTI5_IRQHandler, 13)
+@svlreg INTERRUPT_HANDLER(EXTI5_IRQHandler, 13)
 {
+	tach3_sens_update();
+	EXTI_ClearITPendingBit(EXTI_IT_Pin5);
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
@@ -307,8 +322,11 @@ INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20)
   * @param  None
   * @retval None
   */
-INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21)
+@svlreg INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21)
 {
+	tach_ms_inc();
+	TIM3_ClearITPendingBit(TIM3_IT_Update);
+
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
@@ -384,6 +402,8 @@ INTERRUPT_HANDLER(USART1_TX_IRQHandler, 27)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+	parse_byte_tx();
+	USART_ClearITPendingBit(USART1, USART_FLAG_TC);
 }
 
 /**
@@ -396,6 +416,8 @@ INTERRUPT_HANDLER(USART1_RX_IRQHandler, 28)
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
   */
+	parse_byte_rx();
+	USART_ClearITPendingBit(USART1, USART_FLAG_RXNE);
 }
 
 /**

@@ -4,12 +4,13 @@
  */
 
 #include "stm8l15x.h"
-#include "stdio.h"
-#include <math.h>
 #include "voltage_controller.h"
 #include "pwm_controller.h"
 #include "adc_controller.h"
 #include "clock.h"
+#include "serial.h"
+#include "tachometer.h"
+#include <string.h>
 
 /* measured temperature params
 17.7C, 13121ohm
@@ -23,38 +24,10 @@ B: -1.141e-4
 C: 16.181e-7
 */
 
-void serial_init(void){
-	// CLK_SYSCLKDivConfig(CLK_SYSCLKDiv_1);
-	CLK_PeripheralClockConfig(CLK_Peripheral_USART1,ENABLE);
-	USART_DeInit(USART1);
-	USART_Init(USART1,9600, USART_WordLength_8b, USART_StopBits_1, USART_Parity_No, USART_Mode_Tx);
-	USART_Cmd(USART1, ENABLE);
-}
 
-
-void serial_write(char* word){
-	char* ptr = word;
-	while (*ptr != '\0'){
-		USART_SendData8(USART1, *ptr);
-		ptr++;
-		while(!(USART_GetFlagStatus(USART1, USART_FLAG_TXE)));
-	}
-	USART_SendData8(USART1, '\n');
-	while (!(USART_GetFlagStatus(USART1, USART_FLAG_TXE)));
-}
-char wordarray[50];
-
-void serial_write_int(int b){
-	sprintf(wordarray, "%i", b);
-	serial_write(wordarray);
-}
-
-void serial_write_float(double b){
-	sprintf(wordarray, "%f", b);
-	serial_write(wordarray);
-}
 
 void main(){
+	/*
 	uint16_t c = 30;
 	int e = -1;
 	int voltage_mv;
@@ -77,10 +50,7 @@ void main(){
 	
 	pwm_control_init(2);
 	v_control_init();
-	v_control_active(1);
-	serial_write_float(adc_FAN1.A);
-	serial_write_float(adc_FAN1.B);
-	serial_write_float(adc_FAN1.C);
+	v_control_active(1);s
 	
 	while (1){
 		GPIO_WriteBit(GPIOA, GPIO_Pin_5, (e>0 ? SET : RESET));
@@ -96,5 +66,23 @@ void main(){
 		}
 		serial_write_float(temp_SFH);
 		e = -e;
+	}*/
+	//char b[50];
+	clock_init();
+	tach_init();
+	serial_init();
+	adc_subsystem_init();
+	enable_tach(2);
+	pwm_control_init(2);
+	//v_control_init();
+	enableInterrupts();
+	while (1){
+		pwm_control_setoutput(2, rx_buffer);
+		//serial_write_float(get_ms_period(2));
+		//output = (adc_sensor_read_mv(adc_FAN3));
+		//serial_tx_buf_write((void*)&output, 8);
+		serial_write_float(adc_sensor_read_mv(adc_FAN3));
+		delay(1);
 	}
+	
 }

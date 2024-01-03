@@ -31,10 +31,10 @@ struct interrupt_vector const _vectab[] = {
 	{0x82, NonHandledInterrupt}, /* irq7  */
 	{0x82, NonHandledInterrupt}, /* irq8  */
 	{0x82, NonHandledInterrupt}, /* irq9  */
-	{0x82, NonHandledInterrupt}, /* irq10 */
-	{0x82, NonHandledInterrupt}, /* irq11 */
+	{0x82, (interrupt_handler_t)EXTI2_IRQHandler}, /* irq10 */
+	{0x82, (interrupt_handler_t)EXTI3_IRQHandler}, /* irq11 */
 	{0x82, NonHandledInterrupt}, /* irq12 */
-	{0x82, NonHandledInterrupt}, /* irq13 */
+	{0x82, (interrupt_handler_t)EXTI5_IRQHandler}, /* irq13 */
 	{0x82, NonHandledInterrupt}, /* irq14 */
 	{0x82, NonHandledInterrupt}, /* irq15 */
 	{0x82, NonHandledInterrupt}, /* irq16 */
@@ -42,13 +42,13 @@ struct interrupt_vector const _vectab[] = {
 	{0x82, NonHandledInterrupt}, /* irq18 */
 	{0x82, NonHandledInterrupt}, /* irq19 */
 	{0x82, NonHandledInterrupt}, /* irq20 */
-	{0x82, NonHandledInterrupt}, /* irq21 */
+	{0x82, (interrupt_handler_t)TIM3_UPD_OVF_TRG_BRK_IRQHandler}, /* irq21 */
 	{0x82, NonHandledInterrupt}, /* irq22 */
 	{0x82, NonHandledInterrupt}, /* irq23 */
 	{0x82, NonHandledInterrupt}, /* irq24 */
 	{0x82, (interrupt_handler_t)TIM4_UPD_OVF_TRG_IRQHandler}, /* irq25 */
 	{0x82, NonHandledInterrupt}, /* irq26 */
-	{0x82, NonHandledInterrupt}, /* irq27 */
-	{0x82, NonHandledInterrupt}, /* irq28 */
+	{0x82, (interrupt_handler_t)USART1_TX_IRQHandler}, /* irq27 */
+	{0x82, (interrupt_handler_t)USART1_RX_IRQHandler}, /* irq28 */
 	{0x82, NonHandledInterrupt}, /* irq29 */
 };

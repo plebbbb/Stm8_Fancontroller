@@ -5,7 +5,7 @@
   16  0000               _adc_sense_output:
   17  0000 0000          	dc.w	0
   18  0002 0000          	dc.w	0
-  19  0004 0000          	ds.b	2
+  19  0004 0000          	dc.w	0
  155                     ; 13 void adc_sensor_config(uint8_t sensor, double b1, double A1, double B1, double C1){
  157                     .text:	section	.text,new
  158  0000               _adc_sensor_config:
@@ -103,21 +103,21 @@
  311                     ; 38 	CLK_PeripheralClockConfig(CLK_Peripheral_DMA1, ENABLE);
  313  0015 ae1401        	ldw	x,#5121
  314  0018 cd0000        	call	_CLK_PeripheralClockConfig
- 316                     ; 40 	ADC_Init(ADC1, ADC_ConversionMode_Continuous, ADC_Resolution_12Bit, ADC_Prescaler_2);
+ 316                     ; 40 	ADC_Init(ADC1, ADC_ConversionMode_Continuous, ADC_Resolution_12Bit, ADC_Prescaler_2); //was prescaler 2
  318  001b 4b80          	push	#128
  319  001d 4b00          	push	#0
  320  001f 4b04          	push	#4
  321  0021 ae5340        	ldw	x,#21312
  322  0024 cd0000        	call	_ADC_Init
  324  0027 5b03          	addw	sp,#3
- 325                     ; 41 	ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_384Cycles);
- 327  0029 4b07          	push	#7
+ 325                     ; 41 	ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_4Cycles);
+ 327  0029 4b00          	push	#0
  328  002b 4b00          	push	#0
  329  002d ae5340        	ldw	x,#21312
  330  0030 cd0000        	call	_ADC_SamplingTimeConfig
  332  0033 85            	popw	x
- 333                     ; 42 	ADC_SamplingTimeConfig(ADC1, ADC_Group_FastChannels, ADC_SamplingTime_384Cycles);
- 335  0034 4b07          	push	#7
+ 333                     ; 42 	ADC_SamplingTimeConfig(ADC1, ADC_Group_FastChannels, ADC_SamplingTime_4Cycles); //was 384
+ 335  0034 4b00          	push	#0
  336  0036 4b01          	push	#1
  337  0038 ae5340        	ldw	x,#21312
  338  003b cd0000        	call	_ADC_SamplingTimeConfig
@@ -127,31 +127,31 @@
  344  0041 ae5340        	ldw	x,#21312
  345  0044 cd0000        	call	_ADC_Cmd
  347  0047 84            	pop	a
- 348                     ; 46 	ADC_ChannelCmd(ADC1, ADC_Channel_2, ENABLE);
+ 348                     ; 51 	ADC_ChannelCmd(ADC1, ADC_Channel_2, ENABLE);
  350  0048 4b01          	push	#1
  351  004a ae0304        	ldw	x,#772
  352  004d 89            	pushw	x
  353  004e ae5340        	ldw	x,#21312
  354  0051 cd0000        	call	_ADC_ChannelCmd
  356  0054 5b03          	addw	sp,#3
- 357                     ; 47 	ADC_ChannelCmd(ADC1, ADC_Channel_9, ENABLE);
+ 357                     ; 52 	ADC_ChannelCmd(ADC1, ADC_Channel_15, ENABLE);
  359  0056 4b01          	push	#1
- 360  0058 ae0202        	ldw	x,#514
+ 360  0058 ae0280        	ldw	x,#640
  361  005b 89            	pushw	x
  362  005c ae5340        	ldw	x,#21312
  363  005f cd0000        	call	_ADC_ChannelCmd
  365  0062 5b03          	addw	sp,#3
- 366                     ; 48 	ADC_ChannelCmd(ADC1, ADC_Channel_17, ENABLE);
+ 366                     ; 53 	ADC_ChannelCmd(ADC1, ADC_Channel_16, ENABLE);	
  368  0064 4b01          	push	#1
- 369  0066 ae0102        	ldw	x,#258
+ 369  0066 ae0101        	ldw	x,#257
  370  0069 89            	pushw	x
  371  006a ae5340        	ldw	x,#21312
  372  006d cd0000        	call	_ADC_ChannelCmd
  374  0070 5b03          	addw	sp,#3
- 375                     ; 50 	SYSCFG_REMAPDMAChannelConfig(REMAP_DMA1Channel_ADC1ToChannel0);
+ 375                     ; 55 	SYSCFG_REMAPDMAChannelConfig(REMAP_DMA1Channel_ADC1ToChannel0);
  377  0072 4f            	clr	a
  378  0073 cd0000        	call	_SYSCFG_REMAPDMAChannelConfig
- 380                     ; 52 	DMA_Init(DMA1_Channel0, (uint16_t)(&adc_sense_output), 0x5344, 3,  DMA_DIR_PeripheralToMemory, DMA_Mode_Circular, DMA_MemoryIncMode_Inc, DMA_Priority_High, DMA_MemoryDataSize_HalfWord);
+ 380                     ; 57 	DMA_Init(DMA1_Channel0, (uint16_t)(&adc_sense_output), 0x5344, 3,  DMA_DIR_PeripheralToMemory, DMA_Mode_Circular, DMA_MemoryIncMode_Inc, DMA_Priority_High, DMA_MemoryDataSize_HalfWord);
  382  0076 4b08          	push	#8
  383  0078 4b20          	push	#32
  384  007a 4b20          	push	#32
@@ -172,30 +172,30 @@
  399  0096 ae5075        	ldw	x,#20597
  400  0099 cd0000        	call	_DMA_Init
  402  009c 5b0c          	addw	sp,#12
- 403                     ; 54 	DMA_Cmd(DMA1_Channel0, ENABLE);
+ 403                     ; 59 	DMA_Cmd(DMA1_Channel0, ENABLE);
  405  009e 4b01          	push	#1
  406  00a0 ae5075        	ldw	x,#20597
  407  00a3 cd0000        	call	_DMA_Cmd
  409  00a6 84            	pop	a
- 410                     ; 58 	DMA_GlobalCmd(ENABLE);
+ 410                     ; 63 	DMA_GlobalCmd(ENABLE);
  412  00a7 a601          	ld	a,#1
  413  00a9 cd0000        	call	_DMA_GlobalCmd
- 415                     ; 60 	ADC_DMACmd(ADC1, ENABLE);
+ 415                     ; 65 	ADC_DMACmd(ADC1, ENABLE);
  417  00ac 4b01          	push	#1
  418  00ae ae5340        	ldw	x,#21312
  419  00b1 cd0000        	call	_ADC_DMACmd
  421  00b4 84            	pop	a
- 422                     ; 62 	ADC_SoftwareStartConv(ADC1);
+ 422                     ; 67 	ADC_SoftwareStartConv(ADC1);
  424  00b5 ae5340        	ldw	x,#21312
  425  00b8 cd0000        	call	_ADC_SoftwareStartConv
- 427                     ; 63 }
+ 427                     ; 68 }
  430  00bb 81            	ret
- 494                     ; 65 double adc_sensor_read_C(struct adc_sensor sensor){
+ 494                     ; 70 double adc_sensor_read_C(struct adc_sensor sensor){
  495                     .text:	section	.text,new
  496  0000               _adc_sensor_read_C:
  498  0000 5212          	subw	sp,#18
  499       00000012      OFST:	set	18
- 502                     ; 66 	uint16_t voltage_mv = (double)(*(sensor.read_addr)/4095.f) * 3200;
+ 502                     ; 71 	uint16_t voltage_mv = (double)(*(sensor.read_addr)/4095.f) * 3200;
  504  0002 1e15          	ldw	x,(OFST+3,sp)
  505  0004 fe            	ldw	x,(x)
  506  0005 cd0000        	call	c_uitof
@@ -205,7 +205,7 @@
  512  0011 cd0000        	call	c_fmul
  514  0014 cd0000        	call	c_ftoi
  516  0017 1f0d          	ldw	(OFST-5,sp),x
- 518                     ; 67 	double resistance = 10000/(3200/(double)voltage_mv - 1);
+ 518                     ; 72 	double resistance = 10000/(3200/(double)voltage_mv - 1);
  520  0019 1e0d          	ldw	x,(OFST-5,sp)
  521  001b cd0000        	call	c_uitof
  523  001e 96            	ldw	x,sp
@@ -229,7 +229,7 @@
  550  004c 96            	ldw	x,sp
  551  004d 1c000f        	addw	x,#OFST-3
  552  0050 cd0000        	call	c_rtol
- 555                     ; 68 	double temp_SFH = 1 / (0.003141 - 0.0001141*log(resistance) + 0.0000016181*pow(log(resistance),3)) - 273.15;
+ 555                     ; 73 	double temp_SFH = 1 / (0.003141 - 0.0001141*log(resistance) + 0.0000016181*pow(log(resistance),3)) - 273.15;
  557  0053 ce0006        	ldw	x,L522+2
  558  0056 89            	pushw	x
  559  0057 ce0004        	ldw	x,L522
@@ -283,66 +283,80 @@
  624  00c3 96            	ldw	x,sp
  625  00c4 1c000f        	addw	x,#OFST-3
  626  00c7 cd0000        	call	c_rtol
- 629                     ; 70 	return temp_SFH;
+ 629                     ; 75 	return temp_SFH;
  631  00ca 96            	ldw	x,sp
  632  00cb 1c000f        	addw	x,#OFST-3
  633  00ce cd0000        	call	c_ltor
  637  00d1 5b12          	addw	sp,#18
  638  00d3 81            	ret
- 693                     	xref	_pow
- 694                     	xref	_log
- 695                     	xdef	_adc_sensor_read_C
- 696                     	xdef	_adc_sensor_config
- 697                     	xdef	_adc_subsystem_init
- 698                     	switch	.ubsct
- 699  0000               _adc_FAN3:
- 700  0000 000000000000  	ds.b	18
- 701                     	xdef	_adc_FAN3
- 702  0012               _adc_FAN2:
- 703  0012 000000000000  	ds.b	18
- 704                     	xdef	_adc_FAN2
- 705  0024               _adc_FAN1:
- 706  0024 000000000000  	ds.b	18
- 707                     	xdef	_adc_FAN1
- 708                     	xdef	_adc_sense_output
- 709                     	xref	_SYSCFG_REMAPDMAChannelConfig
- 710                     	xref	_DMA_Cmd
- 711                     	xref	_DMA_GlobalCmd
- 712                     	xref	_DMA_Init
- 713                     	xref	_CLK_PeripheralClockConfig
- 714                     	xref	_ADC_DMACmd
- 715                     	xref	_ADC_SamplingTimeConfig
- 716                     	xref	_ADC_ChannelCmd
- 717                     	xref	_ADC_SoftwareStartConv
- 718                     	xref	_ADC_Cmd
- 719                     	xref	_ADC_Init
- 720                     .const:	section	.text
- 721  0000               L542:
- 722  0000 43889333      	dc.w	17288,-27853
- 723  0004               L522:
- 724  0004 40400000      	dc.w	16448,0
- 725  0008               L532:
- 726  0008 35d92d7e      	dc.w	13785,11646
- 727  000c               L512:
- 728  000c 38ef48f8      	dc.w	14575,18680
- 729  0010               L502:
- 730  0010 3b4dd93c      	dc.w	15181,-9924
- 731  0014               L571:
- 732  0014 3f800000      	dc.w	16256,0
- 733  0018               L561:
- 734  0018 45480000      	dc.w	17736,0
- 735  001c               L551:
- 736  001c 457ff000      	dc.w	17791,-4096
- 737                     	xref.b	c_lreg
- 738                     	xref.b	c_x
- 758                     	xref	c_fadd
- 759                     	xref	c_ltor
- 760                     	xref	c_ctof
- 761                     	xref	c_fsub
- 762                     	xref	c_rtol
- 763                     	xref	c_itof
- 764                     	xref	c_ftoi
- 765                     	xref	c_fmul
- 766                     	xref	c_fdiv
- 767                     	xref	c_uitof
- 768                     	end
+ 673                     ; 78 double adc_sensor_read_mv(struct adc_sensor sensor){
+ 674                     .text:	section	.text,new
+ 675  0000               _adc_sensor_read_mv:
+ 677       00000000      OFST:	set	0
+ 680                     ; 79 	return 	(double)(*(sensor.read_addr)/4095.f) * 3200;
+ 682  0000 1e03          	ldw	x,(OFST+3,sp)
+ 683  0002 fe            	ldw	x,(x)
+ 684  0003 cd0000        	call	c_uitof
+ 686  0006 ae001c        	ldw	x,#L551
+ 687  0009 cd0000        	call	c_fdiv
+ 689  000c ae0018        	ldw	x,#L561
+ 690  000f cd0000        	call	c_fmul
+ 694  0012 81            	ret
+ 749                     	xref	_pow
+ 750                     	xref	_log
+ 751                     	xdef	_adc_sensor_read_mv
+ 752                     	xdef	_adc_sensor_read_C
+ 753                     	xdef	_adc_sensor_config
+ 754                     	xdef	_adc_subsystem_init
+ 755                     	switch	.ubsct
+ 756  0000               _adc_FAN3:
+ 757  0000 000000000000  	ds.b	18
+ 758                     	xdef	_adc_FAN3
+ 759  0012               _adc_FAN2:
+ 760  0012 000000000000  	ds.b	18
+ 761                     	xdef	_adc_FAN2
+ 762  0024               _adc_FAN1:
+ 763  0024 000000000000  	ds.b	18
+ 764                     	xdef	_adc_FAN1
+ 765                     	xdef	_adc_sense_output
+ 766                     	xref	_SYSCFG_REMAPDMAChannelConfig
+ 767                     	xref	_DMA_Cmd
+ 768                     	xref	_DMA_GlobalCmd
+ 769                     	xref	_DMA_Init
+ 770                     	xref	_CLK_PeripheralClockConfig
+ 771                     	xref	_ADC_DMACmd
+ 772                     	xref	_ADC_SamplingTimeConfig
+ 773                     	xref	_ADC_ChannelCmd
+ 774                     	xref	_ADC_SoftwareStartConv
+ 775                     	xref	_ADC_Cmd
+ 776                     	xref	_ADC_Init
+ 777                     .const:	section	.text
+ 778  0000               L542:
+ 779  0000 43889333      	dc.w	17288,-27853
+ 780  0004               L522:
+ 781  0004 40400000      	dc.w	16448,0
+ 782  0008               L532:
+ 783  0008 35d92d7e      	dc.w	13785,11646
+ 784  000c               L512:
+ 785  000c 38ef48f8      	dc.w	14575,18680
+ 786  0010               L502:
+ 787  0010 3b4dd93c      	dc.w	15181,-9924
+ 788  0014               L571:
+ 789  0014 3f800000      	dc.w	16256,0
+ 790  0018               L561:
+ 791  0018 45480000      	dc.w	17736,0
+ 792  001c               L551:
+ 793  001c 457ff000      	dc.w	17791,-4096
+ 794                     	xref.b	c_lreg
+ 795                     	xref.b	c_x
+ 815                     	xref	c_fadd
+ 816                     	xref	c_ltor
+ 817                     	xref	c_ctof
+ 818                     	xref	c_fsub
+ 819                     	xref	c_rtol
+ 820                     	xref	c_itof
+ 821                     	xref	c_ftoi
+ 822                     	xref	c_fmul
+ 823                     	xref	c_fdiv
+ 824                     	xref	c_uitof
+ 825                     	end

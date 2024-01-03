@@ -15,7 +15,7 @@
   *           1. Configure the GPIO pin(s) using GPIO_Init()
   *              Two main configuration are available for each pin:
   *                - Input: Floating 
-  *                         Pull-up.
+  *                         Pull-up.a
   *                  In Input mode, external interrupt can be enabled or disabled
   *                - Output: Push-Pull
   *                          Open Drain.

@@ -23,4 +23,6 @@ void adc_sensor_config(uint8_t sensor, float b1, float A1, float B1, float C1);
 
 double adc_sensor_read_C(struct adc_sensor sensor);
 
+double adc_sensor_read_mv(struct adc_sensor sensor);
+
 #endif

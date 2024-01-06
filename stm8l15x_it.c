@@ -40,10 +40,13 @@ extern void delay_dec(void);
 extern void parse_byte_tx(void);
 extern void parse_byte_rx(void);
 
+///*
 extern void tach1_sens_update(void);
 extern void tach2_sens_update(void);
 extern void tach3_sens_update(void);
+//*/
 
+//extern void tach_update(volatile uint8_t tach);
 extern void tach_ms_inc(void);
 /* Private functions ---------------------------------------------------------*/
 /* Public functions ----------------------------------------------------------*/
@@ -188,6 +191,7 @@ INTERRUPT_HANDLER(EXTI1_IRQHandler, 9)
 @svlreg INTERRUPT_HANDLER(EXTI2_IRQHandler, 10)
 {
 	tach1_sens_update();
+//	tach_update(0);
 	EXTI_ClearITPendingBit(EXTI_IT_Pin2);
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
@@ -202,6 +206,7 @@ INTERRUPT_HANDLER(EXTI1_IRQHandler, 9)
 @svlreg INTERRUPT_HANDLER(EXTI3_IRQHandler, 11)
 {
 	tach2_sens_update();
+//	tach_update(1);
 	EXTI_ClearITPendingBit(EXTI_IT_Pin3);
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.
@@ -228,6 +233,7 @@ INTERRUPT_HANDLER(EXTI4_IRQHandler, 12)
 @svlreg INTERRUPT_HANDLER(EXTI5_IRQHandler, 13)
 {
 	tach3_sens_update();
+	//tach_update(2);
 	EXTI_ClearITPendingBit(EXTI_IT_Pin5);
   /* In order to detect unexpected events during development,
      it is recommended to set a breakpoint on the following instruction.

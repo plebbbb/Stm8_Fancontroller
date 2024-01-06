@@ -110,14 +110,14 @@
  321  0021 ae5340        	ldw	x,#21312
  322  0024 cd0000        	call	_ADC_Init
  324  0027 5b03          	addw	sp,#3
- 325                     ; 41 	ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_4Cycles);
- 327  0029 4b00          	push	#0
+ 325                     ; 41 	ADC_SamplingTimeConfig(ADC1, ADC_Group_SlowChannels, ADC_SamplingTime_384Cycles);
+ 327  0029 4b07          	push	#7
  328  002b 4b00          	push	#0
  329  002d ae5340        	ldw	x,#21312
  330  0030 cd0000        	call	_ADC_SamplingTimeConfig
  332  0033 85            	popw	x
- 333                     ; 42 	ADC_SamplingTimeConfig(ADC1, ADC_Group_FastChannels, ADC_SamplingTime_4Cycles); //was 384
- 335  0034 4b00          	push	#0
+ 333                     ; 42 	ADC_SamplingTimeConfig(ADC1, ADC_Group_FastChannels, ADC_SamplingTime_384Cycles); //was 384
+ 335  0034 4b07          	push	#7
  336  0036 4b01          	push	#1
  337  0038 ae5340        	ldw	x,#21312
  338  003b cd0000        	call	_ADC_SamplingTimeConfig
@@ -127,23 +127,23 @@
  344  0041 ae5340        	ldw	x,#21312
  345  0044 cd0000        	call	_ADC_Cmd
  347  0047 84            	pop	a
- 348                     ; 51 	ADC_ChannelCmd(ADC1, ADC_Channel_2, ENABLE);
+ 348                     ; 47 	ADC_ChannelCmd(ADC1, ADC_Channel_2, ENABLE);
  350  0048 4b01          	push	#1
  351  004a ae0304        	ldw	x,#772
  352  004d 89            	pushw	x
  353  004e ae5340        	ldw	x,#21312
  354  0051 cd0000        	call	_ADC_ChannelCmd
  356  0054 5b03          	addw	sp,#3
- 357                     ; 52 	ADC_ChannelCmd(ADC1, ADC_Channel_15, ENABLE);
+ 357                     ; 48 	ADC_ChannelCmd(ADC1, ADC_Channel_9, ENABLE);
  359  0056 4b01          	push	#1
- 360  0058 ae0280        	ldw	x,#640
+ 360  0058 ae0202        	ldw	x,#514
  361  005b 89            	pushw	x
  362  005c ae5340        	ldw	x,#21312
  363  005f cd0000        	call	_ADC_ChannelCmd
  365  0062 5b03          	addw	sp,#3
- 366                     ; 53 	ADC_ChannelCmd(ADC1, ADC_Channel_16, ENABLE);	
+ 366                     ; 49 	ADC_ChannelCmd(ADC1, ADC_Channel_17, ENABLE);
  368  0064 4b01          	push	#1
- 369  0066 ae0101        	ldw	x,#257
+ 369  0066 ae0102        	ldw	x,#258
  370  0069 89            	pushw	x
  371  006a ae5340        	ldw	x,#21312
  372  006d cd0000        	call	_ADC_ChannelCmd
@@ -190,12 +190,12 @@
  425  00b8 cd0000        	call	_ADC_SoftwareStartConv
  427                     ; 68 }
  430  00bb 81            	ret
- 494                     ; 70 double adc_sensor_read_C(struct adc_sensor sensor){
+ 494                     ; 70 float adc_sensor_read_C(struct adc_sensor sensor){
  495                     .text:	section	.text,new
  496  0000               _adc_sensor_read_C:
  498  0000 5212          	subw	sp,#18
  499       00000012      OFST:	set	18
- 502                     ; 71 	uint16_t voltage_mv = (double)(*(sensor.read_addr)/4095.f) * 3200;
+ 502                     ; 71 	uint16_t voltage_mv = (float)(*(sensor.read_addr)/4095.f) * 3200;
  504  0002 1e15          	ldw	x,(OFST+3,sp)
  505  0004 fe            	ldw	x,(x)
  506  0005 cd0000        	call	c_uitof
@@ -205,7 +205,7 @@
  512  0011 cd0000        	call	c_fmul
  514  0014 cd0000        	call	c_ftoi
  516  0017 1f0d          	ldw	(OFST-5,sp),x
- 518                     ; 72 	double resistance = 10000/(3200/(double)voltage_mv - 1);
+ 518                     ; 72 	float resistance = 10000/(3200/(float)voltage_mv - 1);
  520  0019 1e0d          	ldw	x,(OFST-5,sp)
  521  001b cd0000        	call	c_uitof
  523  001e 96            	ldw	x,sp
@@ -229,7 +229,7 @@
  550  004c 96            	ldw	x,sp
  551  004d 1c000f        	addw	x,#OFST-3
  552  0050 cd0000        	call	c_rtol
- 555                     ; 73 	double temp_SFH = 1 / (0.003141 - 0.0001141*log(resistance) + 0.0000016181*pow(log(resistance),3)) - 273.15;
+ 555                     ; 73 	float temp_SFH = 1 / (0.003141 - 0.0001141*log(resistance) + 0.0000016181*pow(log(resistance),3)) - 273.15;
  557  0053 ce0006        	ldw	x,L522+2
  558  0056 89            	pushw	x
  559  0057 ce0004        	ldw	x,L522
@@ -289,11 +289,11 @@
  633  00ce cd0000        	call	c_ltor
  637  00d1 5b12          	addw	sp,#18
  638  00d3 81            	ret
- 673                     ; 78 double adc_sensor_read_mv(struct adc_sensor sensor){
+ 673                     ; 78 float adc_sensor_read_mv(struct adc_sensor sensor){
  674                     .text:	section	.text,new
  675  0000               _adc_sensor_read_mv:
  677       00000000      OFST:	set	0
- 680                     ; 79 	return 	(double)(*(sensor.read_addr)/4095.f) * 3200;
+ 680                     ; 79 	return 	(float)(*(sensor.read_addr)/4095.f) * 3200;
  682  0000 1e03          	ldw	x,(OFST+3,sp)
  683  0002 fe            	ldw	x,(x)
  684  0003 cd0000        	call	c_uitof

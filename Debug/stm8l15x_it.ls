@@ -1,68 +1,68 @@
    1                     ; C Compiler for STM8 (COSMIC Software)
    2                     ; Parser V4.12.9 - 19 Apr 2023
    3                     ; Generator (Limited) V4.5.6 - 18 Jul 2023
-  43                     ; 73 INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler)
-  43                     ; 74 {
+  43                     ; 76 INTERRUPT_HANDLER_TRAP(TRAP_IRQHandler)
+  43                     ; 77 {
   44                     .text:	section	.text,new
   45  0000               f_TRAP_IRQHandler:
-  49                     ; 78 }
+  49                     ; 81 }
   52  0000 80            	iret
-  74                     ; 84 INTERRUPT_HANDLER(FLASH_IRQHandler, 1)
-  74                     ; 85 {
+  74                     ; 87 INTERRUPT_HANDLER(FLASH_IRQHandler, 1)
+  74                     ; 88 {
   75                     .text:	section	.text,new
   76  0000               f_FLASH_IRQHandler:
-  80                     ; 89 }
+  80                     ; 92 }
   83  0000 80            	iret
- 106                     ; 95 INTERRUPT_HANDLER(DMA1_CHANNEL0_1_IRQHandler, 2)
- 106                     ; 96 {
+ 106                     ; 98 INTERRUPT_HANDLER(DMA1_CHANNEL0_1_IRQHandler, 2)
+ 106                     ; 99 {
  107                     .text:	section	.text,new
  108  0000               f_DMA1_CHANNEL0_1_IRQHandler:
- 112                     ; 100 }
+ 112                     ; 103 }
  115  0000 80            	iret
- 138                     ; 106 INTERRUPT_HANDLER(DMA1_CHANNEL2_3_IRQHandler, 3)
- 138                     ; 107 {
+ 138                     ; 109 INTERRUPT_HANDLER(DMA1_CHANNEL2_3_IRQHandler, 3)
+ 138                     ; 110 {
  139                     .text:	section	.text,new
  140  0000               f_DMA1_CHANNEL2_3_IRQHandler:
- 144                     ; 111 }
+ 144                     ; 114 }
  147  0000 80            	iret
- 169                     ; 117 INTERRUPT_HANDLER(RTC_IRQHandler, 4)
- 169                     ; 118 {
+ 169                     ; 120 INTERRUPT_HANDLER(RTC_IRQHandler, 4)
+ 169                     ; 121 {
  170                     .text:	section	.text,new
  171  0000               f_RTC_IRQHandler:
- 175                     ; 122 }
+ 175                     ; 125 }
  178  0000 80            	iret
- 201                     ; 128 INTERRUPT_HANDLER(EXTIE_F_PVD_IRQHandler, 5)
- 201                     ; 129 {
+ 201                     ; 131 INTERRUPT_HANDLER(EXTIE_F_PVD_IRQHandler, 5)
+ 201                     ; 132 {
  202                     .text:	section	.text,new
  203  0000               f_EXTIE_F_PVD_IRQHandler:
- 207                     ; 133 }
+ 207                     ; 136 }
  210  0000 80            	iret
- 232                     ; 140 INTERRUPT_HANDLER(EXTIB_IRQHandler, 6)
- 232                     ; 141 {
+ 232                     ; 143 INTERRUPT_HANDLER(EXTIB_IRQHandler, 6)
+ 232                     ; 144 {
  233                     .text:	section	.text,new
  234  0000               f_EXTIB_IRQHandler:
- 238                     ; 145 }
+ 238                     ; 148 }
  241  0000 80            	iret
- 263                     ; 152 INTERRUPT_HANDLER(EXTID_IRQHandler, 7)
- 263                     ; 153 {
+ 263                     ; 155 INTERRUPT_HANDLER(EXTID_IRQHandler, 7)
+ 263                     ; 156 {
  264                     .text:	section	.text,new
  265  0000               f_EXTID_IRQHandler:
- 269                     ; 157 }
+ 269                     ; 160 }
  272  0000 80            	iret
- 294                     ; 164 INTERRUPT_HANDLER(EXTI0_IRQHandler, 8)
- 294                     ; 165 {
+ 294                     ; 167 INTERRUPT_HANDLER(EXTI0_IRQHandler, 8)
+ 294                     ; 168 {
  295                     .text:	section	.text,new
  296  0000               f_EXTI0_IRQHandler:
- 300                     ; 169 }
+ 300                     ; 172 }
  303  0000 80            	iret
- 325                     ; 176 INTERRUPT_HANDLER(EXTI1_IRQHandler, 9)
- 325                     ; 177 {
+ 325                     ; 179 INTERRUPT_HANDLER(EXTI1_IRQHandler, 9)
+ 325                     ; 180 {
  326                     .text:	section	.text,new
  327  0000               f_EXTI1_IRQHandler:
- 331                     ; 181 }
+ 331                     ; 184 }
  334  0000 80            	iret
- 358                     ; 188 @svlreg INTERRUPT_HANDLER(EXTI2_IRQHandler, 10)
- 358                     ; 189 {
+ 358                     ; 191 @svlreg INTERRUPT_HANDLER(EXTI2_IRQHandler, 10)
+ 358                     ; 192 {
  359                     .text:	section	.text,new
  360  0000               f_EXTI2_IRQHandler:
  362  0000 8a            	push	cc
@@ -80,12 +80,12 @@
  374  0014 89            	pushw	x
  375  0015 be00          	ldw	x,c_lreg
  376  0017 89            	pushw	x
- 379                     ; 190 	tach1_sens_update();
+ 379                     ; 193 	tach1_sens_update();
  381  0018 cd0000        	call	_tach1_sens_update
- 383                     ; 191 	EXTI_ClearITPendingBit(EXTI_IT_Pin2);
+ 383                     ; 195 	EXTI_ClearITPendingBit(EXTI_IT_Pin2);
  385  001b ae0004        	ldw	x,#4
  386  001e cd0000        	call	_EXTI_ClearITPendingBit
- 388                     ; 195 }
+ 388                     ; 199 }
  391  0021 85            	popw	x
  392  0022 bf00          	ldw	c_lreg,x
  393  0024 85            	popw	x
@@ -97,8 +97,8 @@
  399  002e bf00          	ldw	c_x,x
  400  0030 320002        	pop	c_x+2
  401  0033 80            	iret
- 425                     ; 202 @svlreg INTERRUPT_HANDLER(EXTI3_IRQHandler, 11)
- 425                     ; 203 {
+ 425                     ; 206 @svlreg INTERRUPT_HANDLER(EXTI3_IRQHandler, 11)
+ 425                     ; 207 {
  426                     .text:	section	.text,new
  427  0000               f_EXTI3_IRQHandler:
  429  0000 8a            	push	cc
@@ -116,12 +116,12 @@
  441  0014 89            	pushw	x
  442  0015 be00          	ldw	x,c_lreg
  443  0017 89            	pushw	x
- 446                     ; 204 	tach2_sens_update();
+ 446                     ; 208 	tach2_sens_update();
  448  0018 cd0000        	call	_tach2_sens_update
- 450                     ; 205 	EXTI_ClearITPendingBit(EXTI_IT_Pin3);
+ 450                     ; 210 	EXTI_ClearITPendingBit(EXTI_IT_Pin3);
  452  001b ae0008        	ldw	x,#8
  453  001e cd0000        	call	_EXTI_ClearITPendingBit
- 455                     ; 209 }
+ 455                     ; 214 }
  458  0021 85            	popw	x
  459  0022 bf00          	ldw	c_lreg,x
  460  0024 85            	popw	x
@@ -133,14 +133,14 @@
  466  002e bf00          	ldw	c_x,x
  467  0030 320002        	pop	c_x+2
  468  0033 80            	iret
- 490                     ; 216 INTERRUPT_HANDLER(EXTI4_IRQHandler, 12)
- 490                     ; 217 {
+ 490                     ; 221 INTERRUPT_HANDLER(EXTI4_IRQHandler, 12)
+ 490                     ; 222 {
  491                     .text:	section	.text,new
  492  0000               f_EXTI4_IRQHandler:
- 496                     ; 221 }
+ 496                     ; 226 }
  499  0000 80            	iret
- 523                     ; 228 @svlreg INTERRUPT_HANDLER(EXTI5_IRQHandler, 13)
- 523                     ; 229 {
+ 523                     ; 233 @svlreg INTERRUPT_HANDLER(EXTI5_IRQHandler, 13)
+ 523                     ; 234 {
  524                     .text:	section	.text,new
  525  0000               f_EXTI5_IRQHandler:
  527  0000 8a            	push	cc
@@ -158,12 +158,12 @@
  539  0014 89            	pushw	x
  540  0015 be00          	ldw	x,c_lreg
  541  0017 89            	pushw	x
- 544                     ; 230 	tach3_sens_update();
+ 544                     ; 235 	tach3_sens_update();
  546  0018 cd0000        	call	_tach3_sens_update
- 548                     ; 231 	EXTI_ClearITPendingBit(EXTI_IT_Pin5);
+ 548                     ; 237 	EXTI_ClearITPendingBit(EXTI_IT_Pin5);
  550  001b ae0020        	ldw	x,#32
  551  001e cd0000        	call	_EXTI_ClearITPendingBit
- 553                     ; 235 }
+ 553                     ; 241 }
  556  0021 85            	popw	x
  557  0022 bf00          	ldw	c_lreg,x
  558  0024 85            	popw	x
@@ -175,50 +175,50 @@
  564  002e bf00          	ldw	c_x,x
  565  0030 320002        	pop	c_x+2
  566  0033 80            	iret
- 588                     ; 242 INTERRUPT_HANDLER(EXTI6_IRQHandler, 14)
- 588                     ; 243 {
+ 588                     ; 248 INTERRUPT_HANDLER(EXTI6_IRQHandler, 14)
+ 588                     ; 249 {
  589                     .text:	section	.text,new
  590  0000               f_EXTI6_IRQHandler:
- 594                     ; 247 }
+ 594                     ; 253 }
  597  0000 80            	iret
- 619                     ; 254 INTERRUPT_HANDLER(EXTI7_IRQHandler, 15)
- 619                     ; 255 {
+ 619                     ; 260 INTERRUPT_HANDLER(EXTI7_IRQHandler, 15)
+ 619                     ; 261 {
  620                     .text:	section	.text,new
  621  0000               f_EXTI7_IRQHandler:
- 625                     ; 259 }
+ 625                     ; 265 }
  628  0000 80            	iret
- 650                     ; 265 INTERRUPT_HANDLER(LCD_IRQHandler, 16)
- 650                     ; 266 {
+ 650                     ; 271 INTERRUPT_HANDLER(LCD_IRQHandler, 16)
+ 650                     ; 272 {
  651                     .text:	section	.text,new
  652  0000               f_LCD_IRQHandler:
- 656                     ; 270 }
+ 656                     ; 276 }
  659  0000 80            	iret
- 682                     ; 276 INTERRUPT_HANDLER(SWITCH_CSS_BREAK_DAC_IRQHandler, 17)
- 682                     ; 277 {
+ 682                     ; 282 INTERRUPT_HANDLER(SWITCH_CSS_BREAK_DAC_IRQHandler, 17)
+ 682                     ; 283 {
  683                     .text:	section	.text,new
  684  0000               f_SWITCH_CSS_BREAK_DAC_IRQHandler:
- 688                     ; 281 }
+ 688                     ; 287 }
  691  0000 80            	iret
- 714                     ; 288 INTERRUPT_HANDLER(ADC1_COMP_IRQHandler, 18)
- 714                     ; 289 {
+ 714                     ; 294 INTERRUPT_HANDLER(ADC1_COMP_IRQHandler, 18)
+ 714                     ; 295 {
  715                     .text:	section	.text,new
  716  0000               f_ADC1_COMP_IRQHandler:
- 720                     ; 293 }
+ 720                     ; 299 }
  723  0000 80            	iret
- 746                     ; 300 INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
- 746                     ; 301 {
+ 746                     ; 306 INTERRUPT_HANDLER(TIM2_UPD_OVF_TRG_BRK_IRQHandler, 19)
+ 746                     ; 307 {
  747                     .text:	section	.text,new
  748  0000               f_TIM2_UPD_OVF_TRG_BRK_IRQHandler:
- 752                     ; 305 }
+ 752                     ; 311 }
  755  0000 80            	iret
- 778                     ; 312 INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20)
- 778                     ; 313 {
+ 778                     ; 318 INTERRUPT_HANDLER(TIM2_CAP_IRQHandler, 20)
+ 778                     ; 319 {
  779                     .text:	section	.text,new
  780  0000               f_TIM2_CAP_IRQHandler:
- 784                     ; 317 }
+ 784                     ; 323 }
  787  0000 80            	iret
- 812                     ; 325 @svlreg INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21)
- 812                     ; 326 {
+ 812                     ; 331 @svlreg INTERRUPT_HANDLER(TIM3_UPD_OVF_TRG_BRK_IRQHandler, 21)
+ 812                     ; 332 {
  813                     .text:	section	.text,new
  814  0000               f_TIM3_UPD_OVF_TRG_BRK_IRQHandler:
  816  0000 8a            	push	cc
@@ -236,12 +236,12 @@
  828  0014 89            	pushw	x
  829  0015 be00          	ldw	x,c_lreg
  830  0017 89            	pushw	x
- 833                     ; 327 	tach_ms_inc();
+ 833                     ; 333 	tach_ms_inc();
  835  0018 cd0000        	call	_tach_ms_inc
- 837                     ; 328 	TIM3_ClearITPendingBit(TIM3_IT_Update);
+ 837                     ; 334 	TIM3_ClearITPendingBit(TIM3_IT_Update);
  839  001b a601          	ld	a,#1
  840  001d cd0000        	call	_TIM3_ClearITPendingBit
- 842                     ; 333 }
+ 842                     ; 339 }
  845  0020 85            	popw	x
  846  0021 bf00          	ldw	c_lreg,x
  847  0023 85            	popw	x
@@ -253,26 +253,26 @@
  853  002d bf00          	ldw	c_x,x
  854  002f 320002        	pop	c_x+2
  855  0032 80            	iret
- 878                     ; 339 INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22)
- 878                     ; 340 {
+ 878                     ; 345 INTERRUPT_HANDLER(TIM3_CAP_IRQHandler, 22)
+ 878                     ; 346 {
  879                     .text:	section	.text,new
  880  0000               f_TIM3_CAP_IRQHandler:
- 884                     ; 344 }
+ 884                     ; 350 }
  887  0000 80            	iret
- 910                     ; 350 INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_COM_IRQHandler, 23)
- 910                     ; 351 {
+ 910                     ; 356 INTERRUPT_HANDLER(TIM1_UPD_OVF_TRG_COM_IRQHandler, 23)
+ 910                     ; 357 {
  911                     .text:	section	.text,new
  912  0000               f_TIM1_UPD_OVF_TRG_COM_IRQHandler:
- 916                     ; 355 }
+ 916                     ; 361 }
  919  0000 80            	iret
- 942                     ; 361 INTERRUPT_HANDLER(TIM1_CAP_IRQHandler, 24)
- 942                     ; 362 {
+ 942                     ; 367 INTERRUPT_HANDLER(TIM1_CAP_IRQHandler, 24)
+ 942                     ; 368 {
  943                     .text:	section	.text,new
  944  0000               f_TIM1_CAP_IRQHandler:
- 948                     ; 366 }
+ 948                     ; 372 }
  951  0000 80            	iret
- 976                     ; 373 INTERRUPT_HANDLER(TIM4_UPD_OVF_TRG_IRQHandler, 25)
- 976                     ; 374 {
+ 976                     ; 379 INTERRUPT_HANDLER(TIM4_UPD_OVF_TRG_IRQHandler, 25)
+ 976                     ; 380 {
  977                     .text:	section	.text,new
  978  0000               f_TIM4_UPD_OVF_TRG_IRQHandler:
  980  0000 8a            	push	cc
@@ -286,12 +286,12 @@
  988  000c 3b0002        	push	c_y+2
  989  000f be00          	ldw	x,c_y
  990  0011 89            	pushw	x
- 993                     ; 378 	delay_dec();
+ 993                     ; 384 	delay_dec();
  995  0012 cd0000        	call	_delay_dec
- 997                     ; 379 	TIM4_ClearITPendingBit(TIM4_IT_Update);
+ 997                     ; 385 	TIM4_ClearITPendingBit(TIM4_IT_Update);
  999  0015 a601          	ld	a,#1
 1000  0017 cd0000        	call	_TIM4_ClearITPendingBit
-1002                     ; 382 }
+1002                     ; 388 }
 1005  001a 85            	popw	x
 1006  001b bf00          	ldw	c_y,x
 1007  001d 320002        	pop	c_y+2
@@ -299,14 +299,14 @@
 1009  0021 bf00          	ldw	c_x,x
 1010  0023 320002        	pop	c_x+2
 1011  0026 80            	iret
-1033                     ; 388 INTERRUPT_HANDLER(SPI1_IRQHandler, 26)
-1033                     ; 389 {
+1033                     ; 394 INTERRUPT_HANDLER(SPI1_IRQHandler, 26)
+1033                     ; 395 {
 1034                     .text:	section	.text,new
 1035  0000               f_SPI1_IRQHandler:
-1039                     ; 393 }
+1039                     ; 399 }
 1042  0000 80            	iret
-1067                     ; 400 INTERRUPT_HANDLER(USART1_TX_IRQHandler, 27)
-1067                     ; 401 {
+1067                     ; 406 INTERRUPT_HANDLER(USART1_TX_IRQHandler, 27)
+1067                     ; 407 {
 1068                     .text:	section	.text,new
 1069  0000               f_USART1_TX_IRQHandler:
 1071  0000 8a            	push	cc
@@ -320,15 +320,15 @@
 1079  000c 3b0002        	push	c_y+2
 1080  000f be00          	ldw	x,c_y
 1081  0011 89            	pushw	x
-1084                     ; 405 	parse_byte_tx();
+1084                     ; 411 	parse_byte_tx();
 1086  0012 cd0000        	call	_parse_byte_tx
-1088                     ; 406 	USART_ClearITPendingBit(USART1, USART_FLAG_TC);
+1088                     ; 412 	USART_ClearITPendingBit(USART1, USART_FLAG_TC);
 1090  0015 ae0040        	ldw	x,#64
 1091  0018 89            	pushw	x
 1092  0019 ae5230        	ldw	x,#21040
 1093  001c cd0000        	call	_USART_ClearITPendingBit
 1095  001f 85            	popw	x
-1096                     ; 407 }
+1096                     ; 413 }
 1099  0020 85            	popw	x
 1100  0021 bf00          	ldw	c_y,x
 1101  0023 320002        	pop	c_y+2
@@ -336,8 +336,8 @@
 1103  0027 bf00          	ldw	c_x,x
 1104  0029 320002        	pop	c_x+2
 1105  002c 80            	iret
-1130                     ; 414 INTERRUPT_HANDLER(USART1_RX_IRQHandler, 28)
-1130                     ; 415 {
+1130                     ; 420 INTERRUPT_HANDLER(USART1_RX_IRQHandler, 28)
+1130                     ; 421 {
 1131                     .text:	section	.text,new
 1132  0000               f_USART1_RX_IRQHandler:
 1134  0000 8a            	push	cc
@@ -351,15 +351,15 @@
 1142  000c 3b0002        	push	c_y+2
 1143  000f be00          	ldw	x,c_y
 1144  0011 89            	pushw	x
-1147                     ; 419 	parse_byte_rx();
+1147                     ; 425 	parse_byte_rx();
 1149  0012 cd0000        	call	_parse_byte_rx
-1151                     ; 420 	USART_ClearITPendingBit(USART1, USART_FLAG_RXNE);
+1151                     ; 426 	USART_ClearITPendingBit(USART1, USART_FLAG_RXNE);
 1153  0015 ae0020        	ldw	x,#32
 1154  0018 89            	pushw	x
 1155  0019 ae5230        	ldw	x,#21040
 1156  001c cd0000        	call	_USART_ClearITPendingBit
 1158  001f 85            	popw	x
-1159                     ; 421 }
+1159                     ; 427 }
 1162  0020 85            	popw	x
 1163  0021 bf00          	ldw	c_y,x
 1164  0023 320002        	pop	c_y+2
@@ -367,11 +367,11 @@
 1166  0027 bf00          	ldw	c_x,x
 1167  0029 320002        	pop	c_x+2
 1168  002c 80            	iret
-1190                     ; 428 INTERRUPT_HANDLER(I2C1_IRQHandler, 29)
-1190                     ; 429 {
+1190                     ; 434 INTERRUPT_HANDLER(I2C1_IRQHandler, 29)
+1190                     ; 435 {
 1191                     .text:	section	.text,new
 1192  0000               f_I2C1_IRQHandler:
-1196                     ; 433 }
+1196                     ; 439 }
 1199  0000 80            	iret
 1211                     	xref	_tach_ms_inc
 1212                     	xref	_tach3_sens_update

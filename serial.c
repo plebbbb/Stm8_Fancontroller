@@ -4,8 +4,8 @@
 #include "serial.h"
 #include <string.h>
 
-uint8_t rx_buffer;
-uint8_t tx_buffer[50];
+volatile uint8_t rx_buffer = 0b00000011;
+volatile uint8_t tx_buffer[50];
 volatile uint8_t tx_buffer_index = 0;
 volatile uint8_t tx_buffer_index_max = 0;
 
@@ -18,7 +18,7 @@ void serial_init(void){
 	
 	CLK_PeripheralClockConfig(CLK_Peripheral_USART1,ENABLE);
 	
-	USART_Init(USART1,115200, USART_WordLength_8b, USART_StopBits_1, USART_Parity_No, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
+	USART_Init(USART1, 4800, USART_WordLength_8b, USART_StopBits_1, USART_Parity_No, (USART_Mode_TypeDef)(USART_Mode_Tx | USART_Mode_Rx));
 	
 	USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
 	USART_ITConfig(USART1, USART_IT_TC, ENABLE);
@@ -64,15 +64,16 @@ void serial_write_string(void){
 	parse_byte_tx();
 }
 
-bool serial_write_int(uint32_t b){
+//BROKEN
+bool serial_write_int(volatile uint32_t b){
 	//last TX must have completed for configuration to start
 	if (tx_buffer_index <= tx_buffer_index_max) return 0;
-	sprintf(tx_buffer, "%d\n", b);
+	sprintf(tx_buffer, "%i\n", b);
 	serial_write_string();
 	return 1;
 }
 
-bool serial_write_float(double b){
+bool serial_write_float(volatile double b){
 	//last TX must have completed for configuration to start
 	if (tx_buffer_index <= tx_buffer_index_max) return 0;
 	sprintf(tx_buffer, "%f\n", b);

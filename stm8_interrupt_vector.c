@@ -4,7 +4,7 @@
 #include "stm8l15x_it.h";
 
 typedef void @far (*interrupt_handler_t)(void);
-
+///*
 struct interrupt_vector {
 	unsigned char interrupt_instruction;
 	interrupt_handler_t interrupt_handler;
@@ -15,7 +15,7 @@ struct interrupt_vector {
 
 	return;
 }
-
+//*/
 extern void _stext();     /* startup routine */
 
 struct interrupt_vector const _vectab[] = {
